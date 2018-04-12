@@ -5,6 +5,12 @@ function rnd(min , max){
 
 }
 module.exports = {
+  extend(source , src){
+    for(var i in src){
+      source[i] = src[i]
+    }
+    return source
+  },
   hash(d , key){
     let ret = {}
     d.forEach((i)=>{

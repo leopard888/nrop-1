@@ -3,6 +3,7 @@ const base = require('../utils/base')
 const request = require('request')
 const channals = require('../channals')
 
+console.log(service)
 
 const cats = [
   {title:'默认',key:''},
@@ -69,11 +70,13 @@ module.exports = {
   async detailPage(ctx){
     let {id} = ctx.params
     let proxy = ctx.query.p == 1
+    let index = parseInt(ctx.query.r || '0')
+
     let data = await service.detail(id)
-    console.log(proxy)
-    if(proxy) data.url = '/api/proxy/play/' + base.base64_encode(data.url)
+    let url = index < data.source.length ? data.source[index].url : ''
+    if(proxy) url = '/api/proxy/play/' + base.base64_encode(url)
     await ctx.render('detail',{
-      data , proxy
+      data , proxy , index , url
     })
 
   },

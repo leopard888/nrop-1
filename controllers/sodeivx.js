@@ -1,16 +1,15 @@
-const service = require('./../models/y66t')
+const service = require('./../models/sodeivx')
 const base = require('../utils/base')
 const request = require('request')
 const channals = require('../channals')
-const cats = [
-  
-]
+const cache = require('../utils/cache')
 
-const channal = 'y66t'
+const channal = 'sodeivx'
 
 module.exports = {
 
   async list(ctx) {
+
     let result = {
       status: 0,
       data: null,
@@ -34,7 +33,7 @@ module.exports = {
   async listPage(ctx){
     let { page = 1 , cat = ''} = ctx.query
 
-
+    let cats = await service.cats()
     if (page < 1) page = 1
 
     let data = await service.list(page , cat)
@@ -68,5 +67,7 @@ module.exports = {
       data , proxy , index , url
     })
 
-  }
+  },
+
+
 }

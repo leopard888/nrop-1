@@ -3,9 +3,10 @@ const http = require('../utils/http')
 const base = require('../utils/base')
 const cache = require('../utils/cache')
 const config = require('../config')
+const host = base.base64_decode(require('../config').host.nrop19)
+
 const data = {
   async list(page , cate){
-    let host = config.host('nrop19')
     let resp = await http.get(host+'v.php?page='+page+'&category='+cate)
     let data = []
     resp.replace(/viewkey=([0-9a-z]+)[^<]+?\s*<img\s+src="([^"]+?)"[\w\W]+?title="([^"]+?)"/g , ($0 , $1, $2, $3)=>{
@@ -25,19 +26,21 @@ const data = {
       return cache[viewkey]
     }
 
-    let host = config.host('nrop19')
-
     let resp = await http.get(host+'view_video.php?viewkey='+viewkey , {fake:true})
 
     let url = (resp.match(/source\s*src\s*=\s*"([^"]+)/) || ['',''])[1]
 
-    let img = (resp.match(/poster\s*=\s*"([^"]+)/) || ['',''])[1]
+    let thumb = (resp.match(/poster\s*=\s*"([^"]+)/) || ['',''])[1]
 
     let title =(resp.match(/viewvideo-title">([^<]+)/) || ['',''])[1].replace(/[\r\n\s]/g,'')  
 
-    cache.set(viewkey , { title , url, img})
+    let source = [{
+      title :'默认',
+      url : url
+    }]
+    cache.set(viewkey , { title , source, thumb})
 
-    return { title , url, img}
+    return { title , source, thumb}
   },
 
 

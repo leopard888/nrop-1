@@ -9,11 +9,14 @@ const cache = require('../utils/cache')
 
 const iconv = require('iconv-lite')
 
+const host = base.base64_decode(require('../config').host.y66t)
+
 const getRealKtplayerUrl = async (url) =>{
   // http://www.fcw45.com/player/kt_player.js?v=23.9.0
   let code = http.get('http://www.fcw45.com/player/kt_player.js?v=23.9.0')
   let exec_code = code + ';'
 }
+
 const getRealUrl = async (url) =>{
   let resp = await http.get(url , {fake : true})
 
@@ -60,12 +63,12 @@ const getRealUrl = async (url) =>{
 
 const data = {
   async list(page , cate){
-    let host = config.host('y66t')
-
     let resp = await http.get(host+'thread0806.php?fid=22&page='+page,{encoding:null})
 
     resp = iconv.decode(resp, 'gbk').toString()
+
     let data = []
+
     resp.split('tr2').pop().replace(/class="tal"[^>]+?>([^<]+?)<h3><a\s+href="([^"]+)[^>]+?>([\w\W]+?)<\/a>/g , ($0 , $1 , $2 , $3) =>{
       
       // let de = $3.split(/[\[\]]/g)
@@ -86,7 +89,6 @@ const data = {
       return cache[viewkey]
     }
 
-    let host = config.host('y66t')
     let url = base.base64_decode(viewkey.replace(/_/g,'/'))
     if( url.indexOf('read.php') >= 0 ){
       let resp = await http.header(host+url,{followRedirect:false})
@@ -97,16 +99,17 @@ const data = {
 
     url = (resp.match(/getElementById\('iframe1'\)\.src='([^']+?)'/) || ['',''])[1]
 
-    if(url){
-      console.log('hit url:',url)
-    }
-    
 
     let realurl = await getRealUrl(url)
 
-    cache.set(viewkey , {url:realurl})
+    let source = url ? [] : [{
+      title :'默认',
+      url : realurl
+    }]
 
-    return {  url:realurl  }
+    cache.set(viewkey , {source})
+
+    return {  source  }
   },
 
 

@@ -4,12 +4,14 @@ block content
   include header
   .content.video-detail
 
-    -if(data.url)
-      iframe(src="javascript:'<style>video{width:100%;height:100%;background:#000;}body{margin:0;padding:0;}</style><video src=\""+data.url+"\" controls=\"controls\" autoplay=\"autoplay\"></video>'")
+    -if(data.source.length)
+      iframe(src="javascript:'<style>video{width:100%;height:100%;background:#000;}body{margin:0;padding:0;}</style><video src=\""+url+"\" controls=\"controls\" autoplay=\"autoplay\"></video>'")
       .mode
         span 线路:
-        a(href='?',class=proxy?'':'select') 原始地址
-        a(href='?p=1',class=proxy?'select':'') 服务器中转
+
+        each s,i in data.source
+          a(href='?r='+i,class=(i==index && !proxy ) ?'select':'') #{s.title}
+          a(href='?r='+i+'&p=1',class=(i==index && proxy)?'select':'') #{s.title}(中转)
     -else
       h3 无法解析出链接
   include footer
