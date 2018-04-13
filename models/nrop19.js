@@ -22,8 +22,8 @@ const data = {
   },
 
   async detail(viewkey){
-    if(cache[viewkey]){
-      return cache[viewkey]
+    if(cache(viewkey)){
+      return cache(viewkey)
     }
 
     let resp = await http.get(host+'view_video.php?viewkey='+viewkey , {fake:true})
@@ -38,7 +38,7 @@ const data = {
       title :'默认',
       url : url
     }]
-    cache.set(viewkey , { title , source, thumb})
+    cache(viewkey , { title , source, thumb})
 
     return { title , source, thumb}
   },

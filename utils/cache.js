@@ -1,10 +1,9 @@
 var _cache = {}
 
-module.exports = {
-  get(key) {
+module.exports = (key , ...rest)=>{
+  if(rest.length){
+    _cache[key] = rest[0]
+  }else{
     return _cache[key]
-  },
-  set(key , value){
-    _cache[key] = value
   }
 }

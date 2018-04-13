@@ -11,12 +11,6 @@ const iconv = require('iconv-lite')
 
 const host = base.base64_decode(require('../config').host.y66t)
 
-const getRealKtplayerUrl = async (url) =>{
-  // http://www.fcw45.com/player/kt_player.js?v=23.9.0
-  let code = http.get('http://www.fcw45.com/player/kt_player.js?v=23.9.0')
-  let exec_code = code + ';'
-}
-
 const getRealUrl = async (url) =>{
   let resp = await http.get(url , {fake : true})
 
@@ -85,8 +79,8 @@ const data = {
   },
 
   async detail(viewkey){
-    if(cache[viewkey]){
-      return cache[viewkey]
+    if(cache(viewkey)){
+      return cache(viewkey)
     }
 
     let url = base.base64_decode(viewkey.replace(/_/g,'/'))
@@ -101,13 +95,12 @@ const data = {
 
 
     let realurl = await getRealUrl(url)
-
-    let source = url ? [] : [{
+    let source = realurl ? [{
       title :'默认',
       url : realurl
-    }]
+    }] : []
 
-    cache.set(viewkey , {source})
+    cache(viewkey , {source})
 
     return {  source  }
   },

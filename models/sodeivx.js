@@ -61,13 +61,13 @@ const data = {
   },
 
   async detail(viewkey){
-    if(cache[viewkey]){
-      return cache[viewkey]
+    if(cache(viewkey)){
+      return cache(viewkey)
     }
 
-    viewkey = base.base64_decode(viewkey).replace(/^\//,'')
+    let path = base.base64_decode(viewkey).replace(/^\//,'')
 
-    let resp = await http.get(host+viewkey, {fake:true})
+    let resp = await http.get(host+path, {fake:true})
     // console.log(resp)
     let url_low = (resp.match(/setVideoUrlLow\('([^'"]+?)'/) || ['',''])[1]
 
@@ -90,13 +90,13 @@ const data = {
         'title':'高画质',
         'url':url_high
       },
-      // {
-      //   'title':'HLS(iOS)',
-      //   'url' : url_hls
-      // }
+      {
+        'title':'HLS(iOS)',
+        'url' : url_hls
+      }
     ];
 
-    cache.set(viewkey , { title , source,  thumb , thumbslide})
+    cache(viewkey , { title , source,  thumb , thumbslide})
 
     return { title , source, thumb , thumbslide}
   },

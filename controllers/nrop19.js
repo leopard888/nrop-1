@@ -3,8 +3,6 @@ const base = require('../utils/base')
 const request = require('request')
 const channals = require('../channals')
 
-console.log(service)
-
 const cats = [
   {title:'默认',key:''},
   {title:'当前最热',key:'hot'},
