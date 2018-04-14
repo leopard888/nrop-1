@@ -3,7 +3,7 @@ const http = require('../utils/http')
 const base = require('../utils/base')
 const cache = require('../utils/cache')
 const config = require('../config')
-const host = base.base64_decode(require('../config').host.sodeivx)
+const host = base.base64_decode(require('../config').host.soedivx)
 
 var _cats
 
@@ -42,6 +42,9 @@ const data = {
     }
     else if(/^\?k=/.test(cate)){
       url = cate+'&p='+page
+    }
+    else if(/^s\:\/\//.test(cate)){
+      url = cate.replace('s://','?k=') + '&p=' + page
     }
     else{
       url = 'new/' + page

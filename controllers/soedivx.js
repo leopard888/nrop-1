@@ -1,10 +1,10 @@
-const service = require('./../models/sodeivx')
+const service = require('./../models/soedivx')
 const base = require('../utils/base')
 const request = require('request')
 const channals = require('../channals')
 const cache = require('../utils/cache')
 
-const channal = 'sodeivx'
+const channal = 'soedivx'
 
 module.exports = {
 
@@ -31,15 +31,21 @@ module.exports = {
   },
 
   async listPage(ctx){
-    let { page = 1 , cat = ''} = ctx.query
+    let { page = 1 , cat = '' , q = ''} = ctx.query
 
     let cats = await service.cats()
+
+    if(q){
+      cat = base.base64_encode('s://'+encodeURIComponent(q))
+    }
+
     if (page < 1) page = 1
 
     let data = await service.list(page , cat)
 
     await ctx.render('index',{
-      data , page:parseInt(page) , cat , cats , channal , channals
+      data , page:parseInt(page) , cat , cats , channal , channals,
+      enable_search : true , q
     })
   },
 

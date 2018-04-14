@@ -15,6 +15,9 @@ block content
         div.btn-cat
 
     .cats.subcats
+      -if(enable_search)
+        div.key-search
+          input(type="text",value=q)
       each item in cats
         a(href='/page/'+channal+'/list?cat='+item.key,class=cat==item.key ? 'active':'') #{item.title}
       
@@ -31,6 +34,21 @@ block content
     $(function(){
       $('.btn-cat').on('click' , function(){
         $('.video').toggleClass('show-cats')
+      })
+
+      $('.key-search input').on('keyup' , function(event){
+        if(event.keyCode ==13){
+          var k = $(this).val()
+          if(k){
+            var s = location.search
+            if(s.indexOf('?')>=0){
+              location.href = s + '&q=' + k
+            }else{
+              location.href = s + '?q=' + k
+            }
+          }
+        }
+        
       })
     })
 
