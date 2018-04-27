@@ -9,7 +9,11 @@
 
 在吃灰机器上运行即可。
 
-
 访问 http://本机IP:3002
+
+OR
+
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+
 
 

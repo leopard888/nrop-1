@@ -1,0 +1,11 @@
+{
+  "name": "nrop",
+  "description": "deploy nrop to Heroku",
+  "keywords": ["nrop"],
+  "env": {
+    
+  },
+  "website": "https://github.com/reruin/nrop",
+  "repository": "https://github.com/reruin/nrop",
+  "stack": "container"
+ }
