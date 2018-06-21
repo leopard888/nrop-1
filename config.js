@@ -6,4 +6,13 @@ module.exports = {
     'nrop19':'aHR0cDovL3d3dy45MXBvcm4uY29tLw==',
     'soedivx':'aHR0cHM6Ly93d3cueHZpZGVvcy5jb20v'
   },
+
+  //访问验证
+  auth:{
+    type:'local',
+    data:{
+      username:'admin',
+      password:'123456'
+    }
+  }
 }

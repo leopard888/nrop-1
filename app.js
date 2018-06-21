@@ -5,6 +5,7 @@ const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 const koaStatic = require('koa-static')
+const session = require('koa-session-minimal')
 
 const less = require('./middleware/koa-less')
 const addr = require('./middleware/koa-addr')
@@ -19,6 +20,12 @@ const cors = require('@koa/cors');
 const app = new Koa()
 
 onerror(app)
+
+// 配置session中间件
+app.use(session({
+  key: 'USER_SID'
+}))
+
 
 app.use(cors())
 

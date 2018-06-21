@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  include base/message
+
+  
+  section.row
+    .signin-box.col.align-center 
+      form(action='', method='post')
+        .signin-body
+          h4 登 录
+          .form-group
+            input.form-control(type='text', name='username', placeholder='用户名')
+          .form-group
+            input.form-control(type='password',name='password' placeholder='密码')
+          
+        .signin-footer
+          button.btn.btn-primary.btn-block 登 录
