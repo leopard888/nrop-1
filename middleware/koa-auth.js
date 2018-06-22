@@ -1,7 +1,8 @@
+const config = require('../config')
 
 const auth = {
   check(ctx, next) {
-    if(ctx.session && ctx.session.signin){
+    if(config.auth === false || (ctx.session && ctx.session.signin)){
       return next()
     }else{
       let last = ctx.href;
