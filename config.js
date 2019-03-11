@@ -1,4 +1,3 @@
-
 module.exports = {
   port : 3002 , 
   host : {
@@ -12,7 +11,7 @@ module.exports = {
     type:'local',
     data:{
       username:'admin',
-      pasword:'86591234'
+      password:'86591234'
     }
   }
 }
