@@ -12,7 +12,7 @@ module.exports = {
     type:'local',
     data:{
       username:'admin',
-      password:'123456'
+      pasword:'86591234'
     }
   }
 }
