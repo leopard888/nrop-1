@@ -12,7 +12,7 @@ const data = {
     resp.replace(/viewkey=([0-9a-z]+)[^<]+?\s*<img\s+src="([^"]+?)"[\w\W]+?title="([^"]+?)"/g , ($0 , $1, $2, $3)=>{
       data.push({
         viewkey : $1 , 
-        thumb : $2.replace(/http:/,'https:') ,
+        thumb : $2.replace(/http:/,'http:') ,
         img : $2.replace(/http:/,'http:').replace(/\d+_/,''),
         title : $3
       })
