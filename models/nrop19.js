@@ -28,7 +28,7 @@ const data = {
 
     let resp = await http.get(host+'view_video.php?viewkey='+viewkey , {fake:true})
 
-    let url = (resp.match(/source\s*src\s*=\s*"([^"]+)/) || ['',''])[1]
+    let url = (resp.match(/readOnly\s*=\s*"([^"]+)/) || ['',''])[1]
 
     let thumb = (resp.match(/poster\s*=\s*"([^"]+)/) || ['',''])[1]
 
