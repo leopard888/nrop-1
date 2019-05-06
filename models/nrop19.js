@@ -27,10 +27,6 @@ const data = {
     }
 
     let resp = await http.get(host+'view_video.php?viewkey='+viewkey , {fake:true})
-    
-    let url = (resp.match(/readOnly">http://91.p9p.co/ev.php?VID=([^"]+)/) || ['',''])[1]
-                          
-    let resp = await http.get('http://91.p9p.co/ev.php?VID='+url, {fake:true})
 
     let url = (resp.match(/source\s*src\s*=\s*"([^"]+)/) || ['',''])[1]
 
